@@ -395,9 +395,9 @@ function detectGesture(lm){
   ringTip.y > lm[14].y &&
   pinkyTip.y > lm[18].y;
 
-  /* SHAKA */
+  /* Okey */
 
-  const shaka =
+  const okey =
   thumbTip.x < lm[3].x &&
   pinkyTip.y < lm[18].y &&
   indexTip.y > lm[6].y;
@@ -423,14 +423,14 @@ function detectGesture(lm){
   }
 
   else if(
-    shaka &&
-    lastGesture !== "Okey"
+    okey &&
+    lastGesture !== "okey"
   ){
 
-    lastGesture = "Okey";
+    lastGesture = "okey";
 
     generateTextParticles(
-      customMap.Okey
+      customMap.okey
     );
 
     statusText.innerText =
