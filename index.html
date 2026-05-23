@@ -1,39 +1,114 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FOXXY CYBER AI</title>  <link rel="stylesheet" href="style.css" />
-</head>
-<body><div class="landing" id="landing">
-  <div class="panel">
-    <div class="title">FOXXY AI</div>
-    <div class="subtitle">
-      Cyberpunk RGB Gesture Particle System<br>
-      Realtime Hand Tracking AI
-    </div><button class="btn" id="enterBtn">MASUK</button>
-<button class="btn" id="supportBtn">SUPPORT DEVELOPER</button>
 
-<div class="support-links" id="supportLinks">
-  <a href="#">Instagram</a>
-  <a href="#">TikTok</a>
-  <a href="#">YouTube</a>
-  <a href="#">Website</a>
-</div>
+  <title>FOXXY GESTURE DETECTION</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div class="landing" id="landing">
+
+    <div class="panel">
+
+      <h1 class="title">FOXXY CODE</h1>
+
+      <p class="subtitle">
+        Cyberpunk RGB Gesture Particle System <br>
+        Realtime Hand Tracking AI
+      </p>
+
+      <button class="btn" id="enterBtn">
+        MASUK
+      </button>
+
+      <button class="btn support-btn" id="supportBtn">
+        SUPPORT DEVELOPER
+      </button>
+
+      <div class="support-links" id="supportLinks">
+
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+        <a href="#">Website</a>
+
+      </div>
+
+    </div>
 
   </div>
-</div><video id="video" autoplay playsinline></video> <canvas id="canvas"></canvas>
 
-<div class="overlay">
-  ✌ → foxxy ❤ uwaw | 🫰 → ❤ | 🤙 → created by foxxy official
-  <div class="status" id="status">Cyber System Initializing...</div>
-</div><div class="custom-box">
-  <h3>Custom Gesture</h3>  <select id="gestureSelect">
-    <option value="peace">✌ Peace</option>
-    <option value="heart">🫰 Heart</option>
-    <option value="shaka">🤙 Shaka</option>
-  </select>  <input id="customText" placeholder="Custom output text" /><button class="btn" id="saveCustom">SAVE CUSTOM</button>
+  <!-- CAMERA -->
+  <video id="video" autoplay playsinline></video>
 
-</div><div class="watermark">
-  website code by foxxyoffc
-</div><script type="module" src="script.js"></script></body>
+  <!-- PARTICLE CANVAS -->
+  <canvas id="canvas"></canvas>
+
+  <!-- OVERLAY -->
+  <div class="overlay">
+
+    <div>
+      ✌ → foxxy ❤ uwaw
+    </div>
+
+    <div>
+      🫰 → ❤
+    </div>
+
+    <div>
+      🤙 → created by foxxy official
+    </div>
+
+    <div class="status" id="status">
+      Cyber System Initializing...
+    </div>
+
+  </div>
+
+  <!-- CUSTOM -->
+  <div class="custom-box">
+
+    <h2>Custom Gesture</h2>
+
+    <select id="gestureSelect">
+
+      <option value="peace">
+        ✌ Peace
+      </option>
+
+      <option value="heart">
+        🫰 Heart
+      </option>
+
+      <option value="shaka">
+        🤙 Shaka
+      </option>
+
+    </select>
+
+    <input
+      type="text"
+      id="customText"
+      placeholder="Custom output text"
+    />
+
+    <button class="btn" id="saveCustom">
+      SAVE CUSTOM
+    </button>
+
+  </div>
+
+  <!-- WATERMARK -->
+  <div class="watermark">
+    website code by foxxyoffc
+  </div>
+
+  <script type="module" src="script.js"></script>
+
+</body>
 </html>
