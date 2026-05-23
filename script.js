@@ -201,7 +201,7 @@ const customMap = {
 
   peace:"foxxy ❤ uwaw",
   heart:"❤",
-  shaka:"created by foxxy official"
+  okey:"created by foxxy official"
 
 };
 
@@ -424,17 +424,17 @@ function detectGesture(lm){
 
   else if(
     shaka &&
-    lastGesture !== "shaka"
+    lastGesture !== "Okey"
   ){
 
-    lastGesture = "shaka";
+    lastGesture = "Okey";
 
     generateTextParticles(
-      customMap.shaka
+      customMap.Okey
     );
 
     statusText.innerText =
-    "🤙 Shaka Detected";
+    "👌 Okey Detected";
 
   }
 
