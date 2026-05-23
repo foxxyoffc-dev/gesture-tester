@@ -1,0 +1,137 @@
+body{
+  overflow:hidden;
+  background:#02040a;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+canvas,video{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+video{
+  object-fit:cover;
+  transform:scaleX(-1);
+  opacity:0.15;
+  filter:blur(1px);
+  z-index:1;
+}
+
+canvas{
+  z-index:2;
+}
+
+.landing{
+  position:fixed;
+  inset:0; display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.92);
+  z-index:20;
+}
+
+.panel{
+  width:90%;
+  max-width:420px;
+  padding:35px;
+  border-radius:30px;
+  background:rgba(5,15,30,0.75);
+  text-align:center;
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(0,180,255,0.25);
+}
+
+.title{
+  font-size:34px;
+  font-weight:bold;
+  margin-bottom:10px;
+  color:#6fdcff;
+}
+
+.subtitle
+opacity:0.75;
+margin-bottom:30px;
+}
+
+.btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:18px;
+  margin-top:14px;
+  background:linear-gradient(135deg,#0077ff,#00d9ff);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.support-links{
+  display:none;
+  flex-direction:column;
+  gap:10px;
+  margin-top:20px;
+}
+
+.support-links a{
+  text-decoration:none;
+  color:#9eeeff;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.05);
+}
+
+.overlay{
+  position:fixed;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:5;
+  padding:15px 22px;
+  border-radius:25px;
+  background:rgba(0,0,0,0.35);
+  font-size:14px;
+  text-align:center;
+}
+
+.status{
+  margin-top:8px;
+  color:#00e1ff;
+  font-weight:bold;
+}
+
+.custom-box{
+  position:fixed;
+  right:15px;
+  top:90px;
+  width:290px;
+  padding:18px;
+  border-radius:22px;
+  background:rgba(0,0,0,0.4);
+  z-index:5;
+}
+
+.custom-box input,
+.custom-box select{
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border:none;
+  background:rgba(255,255,255,0.08);
+  color:white;
+  border-radius:12px;
+}
+
+.watermark{
+  position:fixed;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:12px;
+  letter-spacing:2px;
+  color:rgba(255,255,255,0.35);
+  z-index:5;
+}
