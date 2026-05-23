@@ -39,13 +39,14 @@ canvas{
 .landing{
   position:fixed;
   inset:0;
-  z-index:50;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
   background:rgba(0,0,0,0.92);
+
+  z-index:50;
 
   backdrop-filter:blur(10px);
 }
@@ -58,7 +59,7 @@ canvas{
 
   border-radius:30px;
 
-  background:rgba(0,10,25,0.78);
+  background:rgba(0,10,25,0.8);
 
   border:1px solid rgba(0,170,255,0.25);
 
@@ -155,12 +156,6 @@ canvas{
   padding:13px;
 
   border-radius:14px;
-
-  transition:0.2s;
-}
-
-.support-links a:hover{
-  background:rgba(255,255,255,0.12);
 }
 
 /* OVERLAY */
@@ -285,4 +280,4 @@ canvas{
     width:90%;
   }
 
-  }
+}
