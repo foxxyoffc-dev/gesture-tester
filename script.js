@@ -5,9 +5,14 @@ import {
 
 /* ELEMENT */
 
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const video =
+document.getElementById("video");
+
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
 
 const statusText =
 document.getElementById("status");
@@ -26,25 +31,25 @@ class Particle{
   constructor(x,y){
 
     this.x =
-    Math.random() * canvas.width;
+    Math.random()*canvas.width;
 
     this.y =
-    Math.random() * canvas.height;
+    Math.random()*canvas.height;
 
     this.tx = x;
     this.ty = y;
 
     this.size =
-    Math.random() * 2 + 1;
+    Math.random()*2+1;
   }
 
   update(){
 
     this.x +=
-    (this.tx - this.x) * 0.08;
+    (this.tx-this.x)*0.08;
 
     this.y +=
-    (this.ty - this.y) * 0.08;
+    (this.ty-this.y)*0.08;
   }
 
   draw(){
@@ -59,7 +64,7 @@ class Particle{
       this.y,
       this.size,
       0,
-      Math.PI * 2
+      Math.PI*2
     );
 
     ctx.fillStyle =
@@ -115,6 +120,13 @@ function generateTextParticles(text){
   temp.width = canvas.width;
   temp.height = canvas.height;
 
+  tctx.clearRect(
+    0,
+    0,
+    temp.width,
+    temp.height
+  );
+
   tctx.fillStyle = "white";
 
   tctx.textAlign = "center";
@@ -143,7 +155,7 @@ function generateTextParticles(text){
     for(let x=0;x<temp.width;x+=5){
 
       const index =
-      (y * temp.width + x) * 4;
+      (y*temp.width+x)*4;
 
       if(data[index+3] > 128){
 
@@ -183,36 +195,6 @@ function animate(){
 
 animate();
 
-/* BUTTON */
-
-document
-.getElementById("enterBtn")
-.onclick = ()=>{
-
-  document
-  .getElementById("landing")
-  .style.display = "none";
-
-  initCamera();
-
-};
-
-document
-.getElementById("supportBtn")
-.onclick = ()=>{
-
-  const box =
-  document.getElementById(
-    "supportLinks"
-  );
-
-  box.style.display =
-  box.style.display === "flex"
-  ? "none"
-  : "flex";
-
-};
-
 /* CUSTOM */
 
 const customMap = {
@@ -248,6 +230,36 @@ document
 
 };
 
+/* BUTTON */
+
+document
+.getElementById("enterBtn")
+.onclick = ()=>{
+
+  document
+  .getElementById("landing")
+  .style.display = "none";
+
+  initCamera();
+
+};
+
+document
+.getElementById("supportBtn")
+.onclick = ()=>{
+
+  const box =
+  document.getElementById(
+    "supportLinks"
+  );
+
+  box.style.display =
+  box.style.display === "flex"
+  ? "none"
+  : "flex";
+
+};
+
 /* CAMERA */
 
 async function initCamera(){
@@ -265,7 +277,7 @@ async function initCamera(){
     statusText.innerText =
     "Camera Ready";
 
-    fakeGestureLoop();
+    startHandTracking();
 
   }catch(err){
 
@@ -278,37 +290,169 @@ async function initCamera(){
 
 }
 
-/* DEMO GESTURE LOOP */
+/* HAND TRACKING */
 
-function fakeGestureLoop(){
+async function startHandTracking(){
 
-  const gestures = [
-    "peace",
-    "heart",
-    "shaka"
-  ];
+  const vision =
+  await FilesetResolver.forVisionTasks(
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
+  );
 
-  let index = 0;
+  const handLandmarker =
+  await HandLandmarker.createFromOptions(
+    vision,
+    {
+      baseOptions:{
+        modelAssetPath:
+        "https://storage.googleapis.com/mediapipe-assets/hand_landmarker.task"
+      },
 
-  setInterval(()=>{
+      runningMode:"VIDEO",
 
-    const gesture =
-    gestures[index];
+      numHands:1
+    }
+  );
+
+  async function detect(){
+
+    const results =
+    handLandmarker.detectForVideo(
+      video,
+      performance.now()
+    );
+
+    if(results.landmarks.length > 0){
+
+      const lm =
+      results.landmarks[0];
+
+      detectGesture(lm);
+
+      drawLandmarks(lm);
+
+    }
+
+    requestAnimationFrame(detect);
+
+  }
+
+  detect();
+
+}
+
+/* DRAW HAND */
+
+function drawLandmarks(lm){
+
+  ctx.strokeStyle =
+  "rgba(0,255,255,0.7)";
+
+  ctx.lineWidth = 2;
+
+  lm.forEach(point=>{
+
+    ctx.beginPath();
+
+    ctx.arc(
+      point.x * canvas.width,
+      point.y * canvas.height,
+      5,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle =
+    "#00e5ff";
+
+    ctx.fill();
+
+  });
+
+}
+
+/* GESTURE */
+
+let lastGesture = "";
+
+function detectGesture(lm){
+
+  const thumbTip = lm[4];
+
+  const indexTip = lm[8];
+
+  const middleTip = lm[12];
+
+  const ringTip = lm[16];
+
+  const pinkyTip = lm[20];
+
+  /* PEACE */
+
+  const peace =
+  indexTip.y < lm[6].y &&
+  middleTip.y < lm[10].y &&
+  ringTip.y > lm[14].y &&
+  pinkyTip.y > lm[18].y;
+
+  /* SHAKA */
+
+  const shaka =
+  thumbTip.x < lm[3].x &&
+  pinkyTip.y < lm[18].y &&
+  indexTip.y > lm[6].y;
+
+  /* HEART */
+
+  const heart =
+  Math.abs(
+    thumbTip.x - indexTip.x
+  ) < 0.05;
+
+  if(peace && lastGesture !== "peace"){
+
+    lastGesture = "peace";
 
     generateTextParticles(
-      customMap[gesture]
+      customMap.peace
     );
 
     statusText.innerText =
-    `Gesture Detected : ${gesture}`;
+    "✌ Peace Detected";
 
-    index++;
+  }
 
-    if(index >= gestures.length){
-      index = 0;
-    }
+  else if(
+    shaka &&
+    lastGesture !== "shaka"
+  ){
 
-  },3000);
+    lastGesture = "shaka";
+
+    generateTextParticles(
+      customMap.shaka
+    );
+
+    statusText.innerText =
+    "🤙 Shaka Detected";
+
+  }
+
+  else if(
+    heart &&
+    lastGesture !== "heart"
+  ){
+
+    lastGesture = "heart";
+
+    generateTextParticles(
+      customMap.heart
+    );
+
+    statusText.innerText =
+    "🫰 Heart Detected";
+
+  }
 
 }
 
